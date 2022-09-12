@@ -12,11 +12,10 @@ class game:
         self.clock = pygame.time.Clock()
         self.x = 30
         self.y = 30
- 
         self.BLACK = 0, 0, 0
- 
-        self.button = pygame.Rect(150, 150, 120, 80)
+        self.button = pygame.Rect(self.game_W / 3, 3.6 * self.game_H / 5, self.game_W / 3, self.game_H / 5)
         self.roll = [0] * self.N_dice
+        pygame.display.set_caption('Dice roll game | HaiZuka')
         self.initDice()
         
         
@@ -30,7 +29,16 @@ class game:
         for i in range(0, self.N_dice):
             self.roll[i] = self.pickNumber()
             
+    def draw(self):
+        space = (self.game_W - self.N_dice * self.roll[0]['dice'].get_size()[0]) / (self.N_dice  + 1)
+        for i in range(0, self.N_dice):
+            self.screen.blit(self.roll[i]['dice'], ((i + 1) * space + i * self.roll[0]['dice'].get_size()[0], space))
+        pygame.draw.rect(self.screen, self.BLACK, self.button)
+        pygame.display.flip()
+        
+            
     def run(self):
+        click = False
         while self.done == False:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -38,19 +46,16 @@ class game:
         
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = pygame.mouse.get_pos()
-                if self.button.collidepoint(mouse_pos):
-                    self.initDice()
+                if self.button.collidepoint(mouse_pos) and click == False:
+                    for i in range(1, 30):
+                        self.initDice()
+                        click = True
+                        self.draw()
+                        pygame.time.wait(100)
                     print ([e['diceroll'] for e in self.roll])
-    
-            
-            for i in range(0, self.N_dice):
-                self.screen.blit(self.roll[i]['dice'], (i * 200, 0))
- 
-            pygame.draw.rect(self.screen, self.BLACK, self.button)
-                
-        
-            pygame.display.flip()
-        
+            self.draw()
+            if event.type == pygame.MOUSEBUTTONUP:
+                click = False
             self.screen.fill((255, 255, 255))
      
  
