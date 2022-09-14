@@ -25,7 +25,8 @@ class game:
     def pickNumber(self):
         diceroll = random.randint(1, 6)
         nameImage = ['one', 'two', 'three', 'four', 'five', 'six']
-        dice = pygame.image.load('images/' + nameImage[diceroll - 1] + ".png")
+        dice = pygame.image.load('images/dice/' + nameImage[diceroll - 1] + ".png")
+        dice = pygame.transform.scale(dice, (145, 145))
         return {'dice': dice, 'diceroll': diceroll}
     
     def initDice(self):
@@ -45,9 +46,9 @@ class game:
         pygame.display.flip()
         
         
-    def runVideo(self, index):
+    def runVideo(self, index, start):
         for i in range(0, self.N_dice):
-            self.roll[i] = {'dice': self.dice[index], 'diceroll': 1}
+            self.roll[i] = {'dice': self.dice[(index + start[i]) % self.NImageVideo], 'diceroll': 1}
         
             
     def run(self):
@@ -60,9 +61,10 @@ class game:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = pygame.mouse.get_pos()
                 if self.button.collidepoint(mouse_pos) and click == False:
+                    start = [random.randint(1, self.NImageVideo)] * self.N_dice
                     for j in range(0, 2):
                         for i in range(0, self.NImageVideo):
-                            self.runVideo(i)
+                            self.runVideo(i, [10, 50, 100])
                             self.draw()
                             pygame.time.wait(7)
                     self.initDice()
