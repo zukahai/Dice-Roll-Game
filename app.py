@@ -4,6 +4,7 @@ import pygame, random
 class game:
     def __init__(self):
         pygame.init()
+        self.NImageVideo = 200
         self.game_W = 600
         self.game_H = 450
         self.N_dice = 3
@@ -15,8 +16,10 @@ class game:
         self.BLACK = 0, 0, 0
         self.button = pygame.Rect(self.game_W / 3, 3.6 * self.game_H / 5, self.game_W / 3, self.game_H / 5)
         self.roll = [0] * self.N_dice
+        self.dice = [0] * 200
         pygame.display.set_caption('Dice roll game | HaiZuka')
         self.initDice()
+        self.initVideoDice()
         
         
     def pickNumber(self):
@@ -28,13 +31,23 @@ class game:
     def initDice(self):
         for i in range(0, self.N_dice):
             self.roll[i] = self.pickNumber()
-            
+
+    def initVideoDice(self):
+        for i in range(0, self.NImageVideo):
+            self.dice[i] = pygame.image.load('images/sprite/' + str(i + 1) + ".png")
+            self.dice[i] = pygame.transform.scale(self.dice[i], (145, 145)) 
+    
     def draw(self):
         space = (self.game_W - self.N_dice * self.roll[0]['dice'].get_size()[0]) / (self.N_dice  + 1)
         for i in range(0, self.N_dice):
             self.screen.blit(self.roll[i]['dice'], ((i + 1) * space + i * self.roll[0]['dice'].get_size()[0], space))
         pygame.draw.rect(self.screen, self.BLACK, self.button)
         pygame.display.flip()
+        
+        
+    def runVideo(self, index):
+        for i in range(0, self.N_dice):
+            self.roll[i] = {'dice': self.dice[index], 'diceroll': 1}
         
             
     def run(self):
@@ -47,11 +60,14 @@ class game:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = pygame.mouse.get_pos()
                 if self.button.collidepoint(mouse_pos) and click == False:
-                    for i in range(1, 30):
-                        self.initDice()
-                        click = True
-                        self.draw()
-                        pygame.time.wait(100)
+                    for j in range(0, 2):
+                        for i in range(0, self.NImageVideo):
+                            self.runVideo(i)
+                            self.draw()
+                            pygame.time.wait(7)
+                    self.initDice()
+                    click = True
+                    self.draw()
                     print ([e['diceroll'] for e in self.roll])
             self.draw()
             if event.type == pygame.MOUSEBUTTONUP:

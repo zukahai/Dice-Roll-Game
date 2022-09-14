@@ -18,6 +18,7 @@ def pickNumber():
     diceroll = random.randint(1, 6)
     nameImage = ['one', 'two', 'three', 'four', 'five', 'six']
     dice = pygame.image.load('images/' + nameImage[diceroll - 1] + ".png")
+    dice = pygame.transform.scale(dice, (300, 300)) 
     return {'dice': dice, 'diceroll': diceroll}
 
 roll = [0] * N_dice
