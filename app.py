@@ -62,11 +62,11 @@ class game:
                 mouse_pos = pygame.mouse.get_pos()
                 if self.button.collidepoint(mouse_pos) and click == False:
                     start = [random.randint(1, self.NImageVideo)] * self.N_dice
-                    for j in range(0, 2):
+                    for j in range(0, 5):
                         for i in range(0, self.NImageVideo):
                             self.runVideo(i, [10, 50, 100])
                             self.draw()
-                            pygame.time.wait(7)
+                            pygame.time.wait(4)
                     self.initDice()
                     click = True
                     self.draw()
