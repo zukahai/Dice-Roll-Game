@@ -26,7 +26,7 @@ class game:
     def pickNumber(self):
         diceroll = random.randint(1, 6)
         nameImage = ['one', 'two', 'three', 'four', 'five', 'six']
-        dice = pygame.image.load('images/dice/' + nameImage[diceroll - 1] + ".png")
+        dice = pygame.image.load('assets/images/dice/' + nameImage[diceroll - 1] + ".png")
         dice = pygame.transform.scale(dice, (145, 145))
         return {'dice': dice, 'diceroll': diceroll}
     
@@ -36,7 +36,7 @@ class game:
 
     def initVideoDice(self):
         for i in range(0, self.NImageVideo):
-            self.dice[i] = pygame.image.load('images/sprite/' + str(i + 1) + ".png")
+            self.dice[i] = pygame.image.load('assets/images/sprite/' + str(i + 1) + ".png")
             self.dice[i] = pygame.transform.scale(self.dice[i], (145, 145)) 
     
     def draw(self):
