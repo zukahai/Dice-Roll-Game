@@ -20,6 +20,7 @@ class game:
         pygame.display.set_caption('Dice roll game | HaiZuka')
         self.initDice()
         self.initVideoDice()
+        pygame.display.set_icon(self.dice[0])
         
         
     def pickNumber(self):
@@ -70,7 +71,7 @@ class game:
                     self.initDice()
                     click = True
                     self.draw()
-                    print ([e['diceroll'] for e in self.roll])
+                    print ([e['diceroll'] for e in self.roll], sum([e['diceroll'] for e in self.roll]))
             self.draw()
             if event.type == pygame.MOUSEBUTTONUP:
                 click = False
