@@ -14,3 +14,9 @@ Make game dice roll by python
 
 Demo
 <p align="center"> <img src="/assets/images/demo.png" alt="bg" /> </p>
+<br>
+
+3. Follow github.
+<p align="center"> <img src="https://github.com/zukahai/Confess-Crush/blob/main/imagesGithub/follow.png" alt="bg" /> </p>
+
+Follow me: https://github.com/zukahai
